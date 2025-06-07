@@ -6,6 +6,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🔮 Привет! Я — астробот. Жми на кнопку внизу, чтобы открыть астроприложение 👇"
     )
 
-app = ApplicationBuilder().token("ТВОЙ_ТОКЕН_ОТ_BOTFATHER").build()
+app = ApplicationBuilder().token("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc").build()
 app.add_handler(CommandHandler("start", start))
 app.run_polling()
