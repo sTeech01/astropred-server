@@ -1,28 +1,11 @@
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler, MessageHandler, filters
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 
-# Функция отправки приветственного сообщения с кнопкой
-async def send_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("Открыть приложение", url="https://t.me/astropred_bot?start=app")]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🔮 Привет! Я — астробот.\nНажми на кнопку ниже, чтобы открыть приложение!",
-        reply_markup=reply_markup
+        "🔮 Привет! Я — астробот. Жми на кнопку внизу, чтобы открыть астроприложение 👇"
     )
 
-if __name__ == "__main__":
-    # Твой токен
-    TOKEN = "7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc"
-    
-    app = ApplicationBuilder().token(TOKEN).build()
-    
-    # Обработка команды /start
-    app.add_handler(CommandHandler("start", send_welcome))
-    
-    # Обработка любых текстовых сообщений, чтобы тоже показывать приветствие
-    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), send_welcome))
-    
-    app.run_polling()
+app = ApplicationBuilder().token("ТВОЙ_ТОКЕН_ОТ_BOTFATHER").build()
+app.add_handler(CommandHandler("start", start))
+app.run_polling()
