@@ -5,7 +5,7 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler
 async def start(update, context):
     # Создаем инлайн-клавиатуру с кнопкой
     keyboard = [
-        [InlineKeyboardButton("Получить 100 бонусов", callback_data='get_bonus')]
+        [InlineKeyboardButton("Открыть", callback_data='get_bonus')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -22,7 +22,7 @@ async def button(update, context):
     query = update.callback_query
     await query.answer()
     if query.data == 'get_bonus':
-        await query.edit_message_text("Вы нажали на кнопку! Бонусы скоро будут начислены.")
+        await query.edit_message_text("Вселенная приняла твой сигнал 🌌")
 
 # Настройка бота
 def main():
