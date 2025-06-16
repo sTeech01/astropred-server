@@ -1,40 +1,39 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler
 
 # Функция для приветственного сообщения
-def start(update, context):
+async def start(update, context):
     # Создаем инлайн-клавиатуру с кнопкой
     keyboard = [
-        [InlineKeyboardButton("Получить доступ к крытому инструменту", callback_data='get_bonus')]
+        [InlineKeyboardButton("Получить 100 бонусов", callback_data='get_bonus')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     # Форматированное сообщение с HTML
     message = (
-        "<b>Узнай свое будущее</b>\n"
-        "<i>Простой и красивый интерфейс. Узнай</i>\n\n"
+        "<b>ПОЛУЧИ ДО 100 БОНУСОВ</b>\n"
+        "<i>Через 5 минут онлайн</i>\n\n"
         "Что может делать этот бот?\n"
         "🔮 Привет! Я — астробот. Жми на кнопку внизу, чтобы открыть астроприложение 👇"
     )
 
-    update.message.reply_html(message, reply_markup=reply_markup)
+    await update.message.reply_html(message, reply_markup=reply_markup)
 
-def button(update, context):
+async def button(update, context):
     query = update.callback_query
-    query.answer()
+    await query.answer()
     if query.data == 'get_bonus':
-        query.edit_message_text("Вы нажали на кнопку! Бонусы скоро будут начислены.")
+        await query.edit_message_text("Вы нажали на кнопку! Бонусы скоро будут начислены.")
 
 # Настройка бота
 def main():
-    updater = Updater("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc", use_context=True)
-    dp = updater.dispatcher
+    # Замените "ВАШ_ТОКЕН_БОТА" на ваш токен
+    application = Application.builder().token("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc").build()
 
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CallbackContext.callback_query_handler(button))
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CallbackQueryHandler(button))
 
-    updater.start_polling()
-    updater.idle()
+    application.run_polling()
 
 if __name__ == '__main__':
     main()
