@@ -23,7 +23,13 @@ async def button(update, context):
         await query.edit_message_text("Вы открыли астроприложение! Скоро начнём анализ твоих звёзд. 🌟")
 
 def main():
-    application = Application.builder().token("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc").drop_pending_updates(True).build()
+    # Обновленный способ задания drop_pending_updates
+    application = (
+        Application.builder()
+        .token("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc")
+        .drop_pending_updates(True)
+        .build()
+    )
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button))
