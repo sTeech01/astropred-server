@@ -3,13 +3,11 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler
 
 # Функция для приветственного сообщения
 async def start(update, context):
-    # Создаем инлайн-клавиатуру с кнопкой
     keyboard = [
-        [InlineKeyboardButton("Открыть", callback_data='get_bonus')]
+        [InlineKeyboardButton("Открыть астроприложение", callback_data='open_app')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    # Форматированное сообщение с HTML
     message = (
         "<b>ПОЛУЧИ ЛИЧНЫЙ АСТРОПРОФИЛЬ</b>\n"
         "<i>Всего 5 минут — и звёзды заговорят</i>\n\n"
@@ -21,13 +19,11 @@ async def start(update, context):
 async def button(update, context):
     query = update.callback_query
     await query.answer()
-    if query.data == 'get_bonus':
-        await query.edit_message_text("Вселенная приняла твой сигнал 🌌")
+    if query.data == 'open_app':
+        await query.edit_message_text("Вы открыли астроприложение! Скоро начнём анализ твоих звёзд. 🌟")
 
-# Настройка бота
 def main():
-    # Замените "ВАШ_ТОКЕН_БОТА" на ваш токен
-    application = Application.builder().token("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc").build()
+    application = Application.builder().token("7494465986:AAHEcDJbQ_MORjLojI3Q5jMerHh60D8k1Qc").drop_pending_updates(True).build()
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CallbackQueryHandler(button))
